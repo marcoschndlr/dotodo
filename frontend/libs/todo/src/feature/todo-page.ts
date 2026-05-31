@@ -9,7 +9,7 @@ import { TodoComposer } from 'libs/todo/src/ui/todo-composer';
   imports: [Button, TodoItem, TodoComposer],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <h1 class="font-bold text-xl">Dotodo</h1>
+    <h1 class="font-bold text-xl text-[#0063d5]">do:todo</h1>
     <section class="flex flex-col mt-2 gap-y-4">
       <todo-composer [creating]="creatingTodos()" (composedTodo)="addComposedTodo($event)" />
 
@@ -19,6 +19,11 @@ import { TodoComposer } from 'libs/todo/src/ui/todo-composer';
           (delete)="deleteItem(item.id)"
           (complete)="completeItem(item.id, $event)"
         />
+      } @empty {
+        <span class="text-center text-2xl text-gray-500">
+          🎉<br />
+          You're all done
+        </span>
       }
     </section>
   `,

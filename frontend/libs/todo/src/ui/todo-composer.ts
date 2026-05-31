@@ -12,7 +12,7 @@ import { Button, Textarea } from '@shared';
     </ui-button>
     @if (composerVisible()) {
       <div class="flex flex-col gap-y-2">
-        <ui-textarea [(value)]="text" />
+        <ui-textarea placeholder="Describe your tasks and until when you'll finish them…" [(value)]="text" />
         <ui-button class="self-end" (click)="create()">Create</ui-button>
       </div>
     }
@@ -26,7 +26,7 @@ export class TodoComposer {
   protected text = signal('');
 
   protected readonly addButtonLabel = computed(() =>
-    this.creating() ? 'Creating Todos…' : 'Add Item',
+    this.creating() ? 'Creating Todos…' : 'Add Items',
   );
 
   create() {

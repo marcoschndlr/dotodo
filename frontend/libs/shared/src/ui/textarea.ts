@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, model } from '@angular/core';
+import { Component, ChangeDetectionStrategy, model, input } from '@angular/core';
 
 @Component({
   selector: 'ui-textarea',
@@ -7,15 +7,17 @@ import { Component, ChangeDetectionStrategy, model } from '@angular/core';
   styles: ':host {display: contents}',
   template: `
     <textarea
-      class="border border-gray-950/15 p-2 rounded-2xl "
+      class="border border-gray-950/15 p-2 rounded-2xl placeholder:text-sm"
       style="corner-shape: squircle"
+      [placeholder]="placeholder()"
       [value]="value()"
       (input)="onInput($event)"
     ></textarea>
   `,
 })
 export class Textarea {
-  value = model<string>('');
+  readonly placeholder = input('');
+  readonly value = model<string>('');
 
   onInput(event: Event) {
     const value = (event.target as HTMLTextAreaElement).value;
