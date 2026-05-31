@@ -1,6 +1,7 @@
 package social.marco.dotodo.todo.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 import social.marco.dotodo.todo.model.CreateTodoRequest;
@@ -25,8 +26,17 @@ public class TodoService {
                 UUID.randomUUID(),
                 request.title(),
                 request.description(),
-                request.dueDate()
+                request.dueDate(),
+                false
         );
         return repository.create(todo);
+    }
+
+    public boolean deleteTodo(UUID id) {
+        return repository.deleteById(id);
+    }
+
+    public Optional<Todo> updateCompletion(UUID id, boolean completed) {
+        return Optional.ofNullable(repository.updateCompletion(id, completed));
     }
 }

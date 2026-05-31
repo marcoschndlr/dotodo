@@ -3,3 +3,7 @@ spring:
     name: dotodo
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
+
+server:
+  servlet:
+    context-path: /api
