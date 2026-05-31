@@ -8,6 +8,7 @@
       "@todo": [
         "libs/todo/src/public-api.ts"
       ]
+      "@shared": ["libs/shared/src/public-api.ts"]
     },
     "strict": true,
     "noImplicitOverride": true,
