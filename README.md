@@ -2,6 +2,11 @@
 A coding challenge for dotega.  
 A simple Todo app with AI todo item generation.
 
+## Requirements
+- Docker
+- Node.js 24+
+- Java 21
+
 ## Starting the application
 
 ### Backend
