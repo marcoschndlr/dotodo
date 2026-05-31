@@ -4,6 +4,10 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
-  template: `<router-outlet />`,
+  template: `
+    <main class="max-w-xl mx-auto pbs-6">
+      <router-outlet />
+    </main>
+  `,
 })
 export class App {}
