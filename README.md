@@ -1,4 +1,4 @@
-# Dotodo
+# do:todo 
 A coding challenge for dotega.  
 A simple Todo app with AI todo item generation.
 
@@ -52,4 +52,14 @@ Start the backend with the `secret` and `local` profile active.
 cd frontend
 pnpm install
 pnpm start
+```
+
+## Usage
+- Open the frontend at http://localhost:4200  
+- Click "Add Items"
+- Describe your tasks
+
+### Example
+```text
+Today I need to take out the trash, tomorrow drive to the office, pick up Max from the train station and then go to the gym in the evening.
 ```
