@@ -14,7 +14,7 @@ const variants = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
-      class="flex items-center justify-between border rounded-2xl px-4 py-2"
+      class="flex items-center justify-between border rounded-2xl px-4 py-2 gap-x-4"
       [class]="variantClasses()"
       style="corner-shape: squircle"
     >

@@ -7,12 +7,20 @@ import { Button, Textarea } from '@shared';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: ':host {display: contents}',
   template: `
-    <ui-button class="self-end" (click)="composerVisible.set(!composerVisible())" [disabled]="creating()">
+    <ui-button
+      class="self-end"
+      (click)="composerVisible.set(!composerVisible())"
+      [disabled]="creating()"
+    >
       {{ addButtonLabel() }}
     </ui-button>
     @if (composerVisible()) {
       <div class="flex flex-col gap-y-2">
-        <ui-textarea placeholder="Describe your tasks and until when you'll finish them…" [(value)]="text" />
+        <ui-textarea
+          placeholder="Describe your tasks and until when you'll finish them…"
+          [(value)]="text"
+          (keydown.meta.enter)="create()"
+        />
         <ui-button class="self-end" (click)="create()">Create</ui-button>
       </div>
     }

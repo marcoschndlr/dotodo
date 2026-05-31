@@ -1,12 +1,12 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-import { Button } from '@shared';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TodoStore } from '@todo';
 import { TodoItem } from '../ui/todo-item';
-import { TodoComposer } from 'libs/todo/src/ui/todo-composer';
+import { TodoComposer } from '../ui/todo-composer';
+import { TodoNoItems } from '../ui/todo-no-items';
 
 @Component({
   selector: 'todo-page',
-  imports: [Button, TodoItem, TodoComposer],
+  imports: [TodoItem, TodoComposer, TodoNoItems, TodoNoItems],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h1 class="font-bold text-xl text-[#0063d5]">do:todo</h1>
@@ -20,10 +20,7 @@ import { TodoComposer } from 'libs/todo/src/ui/todo-composer';
           (complete)="completeItem(item.id, $event)"
         />
       } @empty {
-        <span class="text-center text-2xl text-gray-500">
-          🎉<br />
-          You're all done
-        </span>
+        <todo-no-items />
       }
     </section>
   `,
