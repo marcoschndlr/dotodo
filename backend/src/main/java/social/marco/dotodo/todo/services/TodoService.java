@@ -65,7 +65,7 @@ public class TodoService {
                 .system("""
                         You convert free-text into structured todos.
                         Extract tasks, infer deadlines when possible.
-                        Omit descriptions when the task is appropriately described using only the title.
+                        Add a fitting title and descriptions where it makes sense for the todo item.
                         """)
                 .user(text)
                 .call()
