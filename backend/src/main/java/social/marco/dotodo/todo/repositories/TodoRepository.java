@@ -22,6 +22,16 @@ public class TodoRepository {
                 .fetch(this::toTodo);
     }
 
+    public Todo create(Todo todo) {
+        return dsl.insertInto(TODOS)
+                .set(TODOS.ID, todo.id())
+                .set(TODOS.TITLE, todo.title())
+                .set(TODOS.DESCRIPTION, todo.description())
+                .set(TODOS.DUE_DATE, todo.dueDate())
+                .returning()
+                .fetchOne(this::toTodo);
+    }
+
     private Todo toTodo(TodosRecord record) {
         return new Todo(
                 record.getId(),

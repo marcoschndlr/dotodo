@@ -1,7 +1,9 @@
 package social.marco.dotodo.todo.services;
 
 import java.util.List;
+import java.util.UUID;
 import org.springframework.stereotype.Service;
+import social.marco.dotodo.todo.model.CreateTodoRequest;
 import social.marco.dotodo.todo.model.Todo;
 import social.marco.dotodo.todo.repositories.TodoRepository;
 
@@ -16,5 +18,15 @@ public class TodoService {
 
     public List<Todo> getAllTodos() {
         return repository.findAll();
+    }
+
+    public Todo createTodo(CreateTodoRequest request) {
+        Todo todo = new Todo(
+                UUID.randomUUID(),
+                request.title(),
+                request.description(),
+                request.dueDate()
+        );
+        return repository.create(todo);
     }
 }
