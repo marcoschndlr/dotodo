@@ -63,9 +63,18 @@ public class TodoService {
         var todoList = chatClient.prompt()
                 .advisors(AdvisorParams.ENABLE_NATIVE_STRUCTURED_OUTPUT)
                 .system("""
-                        You convert free-text into structured todos.
-                        Extract tasks, infer deadlines when possible.
-                        Add a fitting title and descriptions where it makes sense for the todo item.
+                        You are a todo extraction assistant. The user will describe their tasks in plain English. Your job is to extract each task as a structured todo.
+                        
+                        For each task, extract:
+                        - **`title`** — short, action-oriented (e.g. "Take out the trash")
+                        - **`description`** — only include if there is meaningful extra detail beyond the title (e.g. a location, a person involved, or a specific context). Omit otherwise.
+                        - **`dueDate`** — resolved relative to today's date, which is {{TODAY}}. If a time of day is mentioned (e.g. "in the evening"), add it as `due_time` using a reasonable default: "evening" → 19:00, "morning" → 08:00, "noon" → 12:00.
+                        
+                        Rules:
+                        - Split compound tasks into individual todos (e.g. "drive to the office and pick up Max" → two todos).
+                        - Resolve relative days like "today", "tomorrow", and "this Friday" to absolute dates using today's date.
+                        - If no due date is inferable, omit `due_date`.
+                        - Never invent details not present in the user's message.
                         """)
                 .user(text)
                 .call()
