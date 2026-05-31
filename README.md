@@ -3,6 +3,7 @@ A coding challenge for dotega.
 A simple Todo app with AI todo item generation.
 
 ## Requirements
+- OpenAI API Key
 - Docker
 - Node.js 24+
 - Java 21
