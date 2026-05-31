@@ -19,4 +19,10 @@ export class TodoApi {
   deleteItem(id: string) {
     return this.httpClient.delete(`/api/todos/${id}`);
   }
+
+  createFromCompose(text: string) {
+    return this.httpClient.post('/api/todos', {
+      text,
+    });
+  }
 }

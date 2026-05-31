@@ -11,7 +11,7 @@ import { TodoComposer } from 'libs/todo/src/ui/todo-composer';
   template: `
     <h1 class="font-bold text-xl">Dotodo</h1>
     <section class="flex flex-col mt-2 gap-y-4">
-      <todo-composer (composedTodo)="addComposedTodo($event)" />
+      <todo-composer [creating]="creatingTodos()" (composedTodo)="addComposedTodo($event)" />
 
       @for (item of todos(); track item.id) {
         <todo-item
@@ -27,6 +27,7 @@ export class TodoPage {
   private readonly todoStore = inject(TodoStore);
 
   protected readonly todos = this.todoStore.todos;
+  protected readonly creatingTodos = this.todoStore.creating;
 
   protected deleteItem(id: string) {
     this.todoStore.deleteItem(id).subscribe();
@@ -37,6 +38,6 @@ export class TodoPage {
   }
 
   protected addComposedTodo(text: string) {
-    console.log(text);
+    this.todoStore.createFromCompose(text).subscribe();
   }
 }

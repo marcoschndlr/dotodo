@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, output, input, computed } from '@angular/core';
 import { Button, Textarea } from '@shared';
 
 @Component({
@@ -7,20 +7,31 @@ import { Button, Textarea } from '@shared';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: ':host {display: contents}',
   template: `
-    <ui-button class="self-end" (click)="composerVisible.set(!composerVisible())">
-      Add Item
+    <ui-button class="self-end" (click)="composerVisible.set(!composerVisible())" [disabled]="creating()">
+      {{ addButtonLabel() }}
     </ui-button>
     @if (composerVisible()) {
       <div class="flex flex-col gap-y-2">
         <ui-textarea [(value)]="text" />
-        <ui-button class="self-end" (click)="composedTodo.emit(text())">Create</ui-button>
+        <ui-button class="self-end" (click)="create()">Create</ui-button>
       </div>
     }
   `,
 })
 export class TodoComposer {
-  protected readonly composerVisible = signal(false);
-  text = signal('');
+  readonly creating = input.required<boolean>();
+  readonly composedTodo = output<string>();
 
-  composedTodo = output<string>();
+  protected readonly composerVisible = signal(false);
+  protected text = signal('');
+
+  protected readonly addButtonLabel = computed(() =>
+    this.creating() ? 'Creating Todos…' : 'Add Item',
+  );
+
+  create() {
+    this.composedTodo.emit(this.text());
+    this.composerVisible.set(false);
+    this.text.set('');
+  }
 }
