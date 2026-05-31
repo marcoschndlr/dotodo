@@ -5,7 +5,10 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button class="border border-gray-950/15 px-3 py-2 rounded-2xl" style="corner-shape: squircle">
+    <button
+      class="cursor-pointer border border-gray-950/15 px-3 py-2 rounded-2xl hover:bg-gray-50 transition"
+      style="corner-shape: squircle"
+    >
       <ng-content />
     </button>
   `,
