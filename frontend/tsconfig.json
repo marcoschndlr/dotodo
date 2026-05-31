@@ -5,9 +5,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@todo": [
-        "libs/todo/src/public-api.ts"
-      ]
+      "@todo": ["libs/todo/src/public-api.ts"],
       "@shared": ["libs/shared/src/public-api.ts"]
     },
     "strict": true,
