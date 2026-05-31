@@ -20,11 +20,11 @@ repositories {
 
 extra["springAiVersion"] = "2.0.0-M8"
 val jooqVersion = "3.19.32"
-val jooqDbUrl = providers.environmentVariable("JOOQ_DB_URL")
+val dbUrl = providers.environmentVariable("DB_URL")
 	.orElse("jdbc:postgresql://localhost:5432/dotodo")
-val jooqDbUser = providers.environmentVariable("JOOQ_DB_USER")
+val dbUser = providers.environmentVariable("DB_USER")
 	.orElse("dotodo")
-val jooqDbPassword = providers.environmentVariable("JOOQ_DB_PASSWORD")
+val dbPassword = providers.environmentVariable("DB_PASSWORD")
 	.orElse("securepassword")
 
 dependencies {
@@ -49,6 +49,21 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
+tasks.register<JavaExec>("liquibaseUpdate") {
+	group = "database"
+	description = "Run Liquibase migrations"
+	classpath = configurations["runtimeClasspath"]
+	mainClass.set("liquibase.integration.commandline.Main")
+	args(
+		"--classpath=${project.file("src/main/resources")}",
+		"--changeLogFile=db/changelog/db.changelog-master.xml",
+		"--url=${dbUrl.get()}",
+		"--username=${dbUser.get()}",
+		"--password=${dbPassword.get()}",
+		"update"
+	)
+}
+
 jooq {
 	version.set(jooqVersion)
 	edition.set(nu.studer.gradle.jooq.JooqEdition.OSS)
@@ -59,9 +74,9 @@ jooq {
 				logging = org.jooq.meta.jaxb.Logging.WARN
 				jdbc.apply {
 					driver = "org.postgresql.Driver"
-					url = jooqDbUrl.get()
-					user = jooqDbUser.get()
-					password = jooqDbPassword.get()
+					url = dbUrl.get()
+					user = dbUser.get()
+					password = dbPassword.get()
 				}
 				generator.apply {
 					name = "org.jooq.codegen.DefaultGenerator"
